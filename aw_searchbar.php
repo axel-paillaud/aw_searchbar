@@ -80,6 +80,17 @@ class Aw_Searchbar extends Module implements WidgetInterface
 
     public function hookDisplayHeader()
     {
+        $this->addJqueryUi();
+
+        $this->context->controller->registerStylesheet('modules-searchbar', 'modules/' . $this->name . '/aw_searchbar.css');
+        $this->context->controller->registerJavascript('modules-searchbar', 'modules/' . $this->name . '/aw_searchbar.js', ['position' => 'bottom', 'priority' => 150]);
+    }
+
+    /*
+     * Add only useful jquery-ui lib, instead of the entire jquery-ui.min.js file
+     */
+    private function addJqueryUi()
+    {
         $theme = 'base';
         $css_theme_path = '/js/jquery/ui/themes/' . $theme . '/minified/jquery.ui.theme.min.css';
         $css_path = '/js/jquery/ui/themes/' . $theme . '/minified/jquery-ui.min.css';
@@ -93,9 +104,6 @@ class Aw_Searchbar extends Module implements WidgetInterface
 
         $this->context->controller->registerStylesheet('jquery-ui-theme', $css_theme_path, ['media' => 'all', 'priority' => 95]);
         $this->context->controller->registerStylesheet('jquery-ui', $css_path, ['media' => 'all', 'priority' => 90]);
-
-        $this->context->controller->registerStylesheet('modules-searchbar', 'modules/' . $this->name . '/aw_searchbar.css');
-        $this->context->controller->registerJavascript('modules-searchbar', 'modules/' . $this->name . '/aw_searchbar.js', ['position' => 'bottom', 'priority' => 150]);
     }
 
     public function getWidgetVariables($hookName, array $configuration = [])
