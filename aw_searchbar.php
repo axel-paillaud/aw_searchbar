@@ -34,7 +34,7 @@ if (file_exists($autoloadPath)) {
 
 use PrestaShop\PrestaShop\Core\Module\WidgetInterface;
 
-class Ps_Searchbar extends Module implements WidgetInterface
+class Aw_Searchbar extends Module implements WidgetInterface
 {
     /**
      * @var string Name of the module running on PS 1.6.x. Used for data migration.
@@ -45,9 +45,9 @@ class Ps_Searchbar extends Module implements WidgetInterface
 
     public function __construct()
     {
-        $this->name = 'ps_searchbar';
+        $this->name = 'aw_searchbar';
         $this->tab = 'front_office_features';
-        $this->author = 'PrestaShop';
+        $this->author = 'Axelweb';
         $this->version = '2.1.3';
         $this->need_instance = 0;
 
@@ -58,7 +58,7 @@ class Ps_Searchbar extends Module implements WidgetInterface
 
         $this->ps_versions_compliancy = ['min' => '1.7.8.0', 'max' => _PS_VERSION_];
 
-        $this->templateFile = 'module:ps_searchbar/ps_searchbar.tpl';
+        $this->templateFile = 'module:aw_searchbar/aw_searchbar.tpl';
     }
 
     public function install()
@@ -72,8 +72,8 @@ class Ps_Searchbar extends Module implements WidgetInterface
         }
 
         return parent::install()
-            && $this->registerHook('displayTop')
             && $this->registerHook('displaySearch')
+            && $this->registerHook('displayCenterBanner')
             && $this->registerHook('displayHeader')
         ;
     }
@@ -81,8 +81,8 @@ class Ps_Searchbar extends Module implements WidgetInterface
     public function hookDisplayHeader()
     {
         $this->context->controller->addJqueryUI('ui.autocomplete');
-        $this->context->controller->registerStylesheet('modules-searchbar', 'modules/' . $this->name . '/ps_searchbar.css');
-        $this->context->controller->registerJavascript('modules-searchbar', 'modules/' . $this->name . '/ps_searchbar.js', ['position' => 'bottom', 'priority' => 150]);
+        $this->context->controller->registerStylesheet('modules-searchbar', 'modules/' . $this->name . '/aw_searchbar.css');
+        $this->context->controller->registerJavascript('modules-searchbar', 'modules/' . $this->name . '/aw_searchbar.js', ['position' => 'bottom', 'priority' => 150]);
     }
 
     public function getWidgetVariables($hookName, array $configuration = [])
