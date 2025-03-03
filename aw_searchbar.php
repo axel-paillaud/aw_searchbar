@@ -80,7 +80,20 @@ class Aw_Searchbar extends Module implements WidgetInterface
 
     public function hookDisplayHeader()
     {
-        $this->context->controller->addJqueryUI('ui.autocomplete');
+        $theme = 'base';
+        $css_theme_path = '/js/jquery/ui/themes/' . $theme . '/minified/jquery.ui.theme.min.css';
+        $css_path = '/js/jquery/ui/themes/' . $theme . '/minified/jquery-ui.min.css';
+
+        // Charge uniquement les fichiers nécessaires pour Autocomplete
+        $this->context->controller->registerJavascript('jquery-ui-core', '/js/jquery/ui/jquery.ui.core.min.js', ['position' => 'bottom', 'priority' => 49]);
+        $this->context->controller->registerJavascript('jquery-ui-widget', '/js/jquery/ui/jquery.ui.widget.min.js', ['position' => 'bottom', 'priority' => 49]);
+        $this->context->controller->registerJavascript('jquery-ui-position', '/js/jquery/ui/jquery.ui.position.min.js', ['position' => 'bottom', 'priority' => 49]);
+        $this->context->controller->registerJavascript('jquery-ui-menu', '/js/jquery/ui/jquery.ui.menu.min.js', ['position' => 'bottom', 'priority' => 49]);
+        $this->context->controller->registerJavascript('jquery-ui-autocomplete', '/js/jquery/ui/jquery.ui.autocomplete.min.js', ['position' => 'bottom', 'priority' => 49]);
+
+        $this->context->controller->registerStylesheet('jquery-ui-theme', $css_theme_path, ['media' => 'all', 'priority' => 95]);
+        $this->context->controller->registerStylesheet('jquery-ui', $css_path, ['media' => 'all', 'priority' => 90]);
+
         $this->context->controller->registerStylesheet('modules-searchbar', 'modules/' . $this->name . '/aw_searchbar.css');
         $this->context->controller->registerJavascript('modules-searchbar', 'modules/' . $this->name . '/aw_searchbar.js', ['position' => 'bottom', 'priority' => 150]);
     }
