@@ -80,7 +80,7 @@ class Aw_Searchbar extends Module implements WidgetInterface
 
     public function hookDisplayHeader()
     {
-        $this->addJqueryUi();
+        $this->context->controller->addJqueryUI('ui.autocomplete');
 
         $this->context->controller->registerStylesheet('modules-searchbar', 'modules/' . $this->name . '/aw_searchbar.css');
         $this->context->controller->registerJavascript('modules-searchbar', 'modules/' . $this->name . '/aw_searchbar.js', ['position' => 'bottom', 'priority' => 150]);
@@ -88,6 +88,8 @@ class Aw_Searchbar extends Module implements WidgetInterface
 
     /*
      * Add only useful jquery-ui lib, instead of the entire jquery-ui.min.js file
+     * This optimized import method can't work if another module import jquery-ui.min.js
+     * (eq. gformbuilderpro)
      */
     private function addJqueryUi()
     {
